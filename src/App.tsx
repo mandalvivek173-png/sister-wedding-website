@@ -321,24 +321,32 @@ const Navbar = ({ activeSection }: { activeSection: string }) => {
   );
 };
 
-const Petals = () => (
-  <div className="fixed inset-0 pointer-events-none z-20 overflow-hidden">
-    {[...Array(20)].map((_, i) => (
-      <div 
-        key={i}
-        className="animate-float text-wedding-gold/20 text-2xl"
-        style={{ 
-          left: `${Math.random() * 100}%`, 
-          animationDuration: `${Math.random() * 10 + 10}s`,
-          animationDelay: `${Math.random() * 5}s`,
-          opacity: Math.random() * 0.5 + 0.1
-        }}
-      >
-        🌸
-      </div>
-    ))}
-  </div>
-);
+const Petals = () => {
+  const [count, setCount] = useState(20);
+  
+  useEffect(() => {
+    setCount(window.innerWidth < 768 ? 10 : 20);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-20 overflow-hidden">
+      {[...Array(count)].map((_, i) => (
+        <div 
+          key={i}
+          className="animate-float text-wedding-gold/20 text-2xl"
+          style={{ 
+            left: `${Math.random() * 100}%`, 
+            animationDuration: `${Math.random() * 10 + 10}s`,
+            animationDelay: `${Math.random() * 5}s`,
+            opacity: Math.random() * 0.5 + 0.1
+          }}
+        >
+          🌸
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const Countdown = ({ targetDate }: { targetDate: string }) => {
   const [timeLeft, setTimeLeft] = useState({
@@ -495,7 +503,7 @@ export default function App() {
   if (appStep === 'welcome') {
     return (
       <div 
-        className="h-screen bg-[#050505] flex items-center justify-center overflow-hidden relative cursor-pointer"
+        className="h-[100dvh] bg-[#050505] flex items-center justify-center overflow-hidden relative cursor-pointer touch-none"
         onClick={() => setAppStep('opening')}
       >
         <motion.div 
@@ -512,7 +520,7 @@ export default function App() {
         </motion.div>
         
         <div className="absolute inset-0 opacity-30">
-          {[...Array(50)].map((_, i) => (
+          {[...Array(window.innerWidth < 768 ? 20 : 50)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-1 h-1 bg-wedding-gold rounded-full"
@@ -532,7 +540,7 @@ export default function App() {
           ))}
         </div>
         
-        <div className="text-center z-10 px-4">
+        <div className="text-center z-10 px-4 w-full max-w-4xl">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -543,15 +551,15 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              <Flower2 className="w-16 h-16 mx-auto mb-8 text-wedding-gold animate-pulse" />
-              <h2 className="text-wedding-gold font-display text-sm uppercase tracking-[0.8em] mb-4">In the celebration of love...</h2>
+              <Flower2 className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-6 md:mb-8 text-wedding-gold animate-pulse" />
+              <h2 className="text-wedding-gold font-display text-xs md:text-sm uppercase tracking-[0.4em] md:tracking-[0.8em] mb-4">In the celebration of love...</h2>
             </motion.div>
             
             <motion.h1 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.5, duration: 1.5 }}
-              className="text-7xl md:text-9xl font-cursive gold-text-gradient mb-6"
+              className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-cursive gold-text-gradient mb-6 leading-tight"
             >
               Sweety Mandal & Prem
             </motion.h1>
@@ -560,7 +568,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.5, duration: 1 }}
-              className="text-white/60 font-serif italic text-xl mb-12 tracking-widest"
+              className="text-white/60 font-serif italic text-lg md:text-xl mb-12 tracking-widest px-4"
             >
               "Two hearts, one beautiful journey."
             </motion.p>
@@ -571,13 +579,13 @@ export default function App() {
               transition={{ delay: 3.5, duration: 1 }}
               className="flex flex-col items-center gap-4"
             >
-              <div className="premium-button">
+              <div className="premium-button scale-90 md:scale-100">
                 Enter Our Wedding Story
               </div>
               <motion.p
                 animate={{ opacity: [0.4, 1, 0.4] }}
                 transition={{ repeat: Infinity, duration: 2 }}
-                className="text-wedding-gold font-display text-xs uppercase tracking-[0.3em]"
+                className="text-wedding-gold font-display text-[10px] md:text-xs uppercase tracking-[0.3em]"
               >
                 Tap anywhere to continue
               </motion.p>
@@ -591,7 +599,7 @@ export default function App() {
   if (appStep === 'opening') {
     return (
       <div 
-        className="h-screen bg-wedding-maroon flex items-center justify-center overflow-hidden relative cursor-pointer"
+        className="h-[100dvh] bg-wedding-maroon flex items-center justify-center overflow-hidden relative cursor-pointer touch-none"
         onClick={() => setAppStep('home')}
       >
         <motion.div 
@@ -610,7 +618,7 @@ export default function App() {
         <div className="absolute inset-0 opacity-20 floral-pattern" />
         
         {/* Floating Petals */}
-        {[...Array(30)].map((_, i) => (
+        {[...Array(window.innerWidth < 768 ? 15 : 30)].map((_, i) => (
           <div 
             key={i}
             className="floating-petal animate-float text-wedding-gold/40"
@@ -624,30 +632,30 @@ export default function App() {
           </div>
         ))}
 
-        <div className="text-center z-10 px-4">
+        <div className="text-center z-10 px-4 w-full max-w-4xl">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 2 }}
-            className="royal-border p-16 md:p-24 bg-white/5 backdrop-blur-sm rounded-3xl"
+            className="royal-border p-8 md:p-24 bg-white/5 backdrop-blur-sm rounded-3xl"
           >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
             >
-              <h2 className="text-wedding-gold font-display text-2xl uppercase tracking-[0.8em] mb-8">The Royal Wedding Celebration</h2>
-              <h1 className="text-7xl md:text-9xl font-cursive gold-text-gradient mb-8">Sweety Mandal & Prem</h1>
-              <p className="text-wedding-gold/80 font-serif text-3xl mb-12 tracking-[0.3em]">11 March 2026</p>
+              <h2 className="text-wedding-gold font-display text-lg md:text-2xl uppercase tracking-[0.4em] md:tracking-[0.8em] mb-8">The Royal Wedding Celebration</h2>
+              <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-cursive gold-text-gradient mb-8 leading-tight">Sweety Mandal & Prem</h1>
+              <p className="text-wedding-gold/80 font-serif text-xl md:text-3xl mb-12 tracking-[0.2em] md:tracking-[0.3em]">11 March 2026</p>
               
               <div className="flex flex-col items-center gap-6">
-                <div className="premium-button">
+                <div className="premium-button scale-90 md:scale-100">
                   Explore Our Wedding
                 </div>
                 <motion.p
                   animate={{ opacity: [0.4, 1, 0.4] }}
                   transition={{ repeat: Infinity, duration: 2 }}
-                  className="text-wedding-gold font-display text-xs uppercase tracking-[0.3em]"
+                  className="text-wedding-gold font-display text-[10px] md:text-xs uppercase tracking-[0.3em]"
                 >
                   Tap anywhere to continue
                 </motion.p>
@@ -681,9 +689,8 @@ export default function App() {
         <ArrowLeft className="w-4 h-4" />
         Back
       </motion.button>
-      
-      {/* --- Hero Section --- */}
-      <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+       {/* --- Hero Section --- */}
+      <section id="hero" className="relative h-[100dvh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <AnimatePresence mode="wait">
             <motion.img
@@ -706,21 +713,21 @@ export default function App() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5 }}
-            className="royal-border p-12 md:p-20 bg-white/10 backdrop-blur-md inline-block rounded-3xl"
+            className="royal-border p-8 md:p-20 bg-white/10 backdrop-blur-md inline-block rounded-3xl w-full max-w-4xl"
           >
-            <Flower2 className="w-16 h-16 mx-auto mb-8 text-wedding-gold animate-pulse" />
-            <h1 className="text-xl md:text-2xl font-display uppercase tracking-[0.8em] text-wedding-gold mb-6">
+            <Flower2 className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-6 md:mb-8 text-wedding-gold animate-pulse" />
+            <h1 className="text-lg md:text-2xl font-display uppercase tracking-[0.4em] md:tracking-[0.8em] text-wedding-gold mb-6">
               The Royal Wedding Celebration
             </h1>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-10">
-              <span className="text-7xl md:text-9xl font-cursive gold-text-gradient">Sweety</span>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 mb-10">
+              <span className="text-5xl sm:text-7xl md:text-9xl font-cursive gold-text-gradient leading-tight">Sweety</span>
               <div className="flex flex-col items-center">
-                <Heart className="w-10 h-10 text-wedding-gold fill-wedding-gold mb-2" />
-                <span className="text-wedding-gold font-display text-2xl">&</span>
+                <Heart className="w-8 h-8 md:w-10 md:h-10 text-wedding-gold fill-wedding-gold mb-2" />
+                <span className="text-wedding-gold font-display text-xl md:text-2xl">&</span>
               </div>
-              <span className="text-7xl md:text-9xl font-cursive gold-text-gradient">Prem</span>
+              <span className="text-5xl sm:text-7xl md:text-9xl font-cursive gold-text-gradient leading-tight">Prem</span>
             </div>
-            <p className="text-lg md:text-2xl font-serif italic text-white/90 max-w-2xl mx-auto mb-12 tracking-wide">
+            <p className="text-base md:text-2xl font-serif italic text-white/90 max-w-2xl mx-auto mb-12 tracking-wide px-4">
               "Celebrating the beginning of a beautiful forever."
             </p>
             
@@ -728,7 +735,7 @@ export default function App() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}
-              className="premium-button"
+              className="premium-button scale-90 md:scale-100"
             >
               Explore Our Wedding Story
             </motion.button>
@@ -738,7 +745,7 @@ export default function App() {
         <motion.div 
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-wedding-gold"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-wedding-gold hidden sm:block"
         >
           <div className="w-px h-16 bg-wedding-gold/50 mx-auto" />
           <span className="text-[10px] uppercase tracking-[0.5em] mt-2 block">Scroll</span>
@@ -1072,12 +1079,12 @@ export default function App() {
         <div className="container mx-auto px-4">
           <SectionTitle title="Wedding Gallery" subtitle="Moments Frozen in Time" />
           
-          <div className="flex flex-wrap justify-center items-center gap-4 mb-16">
+          <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 mb-16">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-6 md:px-8 py-2 rounded-full font-display text-xs md:text-sm uppercase tracking-widest transition-all duration-300 border-2 ${
+                className={`px-4 md:px-8 py-2 rounded-full font-display text-[10px] md:text-sm uppercase tracking-widest transition-all duration-300 border-2 ${
                   activeCategory === category 
                     ? 'bg-wedding-maroon border-wedding-maroon text-wedding-gold shadow-lg' 
                     : 'border-wedding-gold/30 text-wedding-gold hover:border-wedding-gold'
@@ -1088,10 +1095,10 @@ export default function App() {
             ))}
             <button
               onClick={() => setIsUploadModalOpen(true)}
-              className="px-6 md:px-8 py-2 rounded-full font-display text-xs md:text-sm uppercase tracking-widest transition-all duration-300 border-2 border-wedding-maroon bg-wedding-maroon text-wedding-gold flex items-center gap-2 hover:bg-wedding-maroon/90 shadow-lg"
+              className="px-4 md:px-8 py-2 rounded-full font-display text-[10px] md:text-sm uppercase tracking-widest transition-all duration-300 border-2 border-wedding-maroon bg-wedding-maroon text-wedding-gold flex items-center gap-2 hover:bg-wedding-maroon/90 shadow-lg"
             >
-              <Camera className="w-4 h-4" />
-              Upload Memories
+              <Camera className="w-3 h-3 md:w-4 md:h-4" />
+              Upload
             </button>
           </div>
 
