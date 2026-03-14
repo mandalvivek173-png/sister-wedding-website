@@ -494,7 +494,10 @@ export default function App() {
 
   if (appStep === 'welcome') {
     return (
-      <div className="h-screen bg-[#050505] flex items-center justify-center overflow-hidden relative">
+      <div 
+        className="h-screen bg-[#050505] flex items-center justify-center overflow-hidden relative cursor-pointer"
+        onClick={() => setAppStep('opening')}
+      >
         <motion.div 
           initial={{ scale: 1.2, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.3 }}
@@ -562,17 +565,23 @@ export default function App() {
               "Two hearts, one beautiful journey."
             </motion.p>
             
-            <motion.button
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 3.5, duration: 1 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(212, 175, 55, 0.4)" }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setAppStep('opening')}
-              className="premium-button mx-auto"
+              className="flex flex-col items-center gap-4"
             >
-              Enter Our Wedding Story
-            </motion.button>
+              <div className="premium-button">
+                Enter Our Wedding Story
+              </div>
+              <motion.p
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="text-wedding-gold font-display text-xs uppercase tracking-[0.3em]"
+              >
+                Tap anywhere to continue
+              </motion.p>
+            </motion.div>
           </motion.div>
         </div>
       </div>
@@ -581,7 +590,10 @@ export default function App() {
 
   if (appStep === 'opening') {
     return (
-      <div className="h-screen bg-wedding-maroon flex items-center justify-center overflow-hidden relative">
+      <div 
+        className="h-screen bg-wedding-maroon flex items-center justify-center overflow-hidden relative cursor-pointer"
+        onClick={() => setAppStep('home')}
+      >
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.15 }}
@@ -628,14 +640,18 @@ export default function App() {
               <h1 className="text-7xl md:text-9xl font-cursive gold-text-gradient mb-8">Sweety Mandal & Prem</h1>
               <p className="text-wedding-gold/80 font-serif text-3xl mb-12 tracking-[0.3em]">11 March 2026</p>
               
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setAppStep('home')}
-                className="premium-button mx-auto"
-              >
-                Explore Our Wedding
-              </motion.button>
+              <div className="flex flex-col items-center gap-6">
+                <div className="premium-button">
+                  Explore Our Wedding
+                </div>
+                <motion.p
+                  animate={{ opacity: [0.4, 1, 0.4] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                  className="text-wedding-gold font-display text-xs uppercase tracking-[0.3em]"
+                >
+                  Tap anywhere to continue
+                </motion.p>
+              </div>
             </motion.div>
           </motion.div>
         </div>
