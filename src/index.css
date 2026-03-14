@@ -1,0 +1,86 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant:ital,wght@0,300;0,400;0,600;1,400&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-cursive: "Cormorant", serif;
+  --font-sans: "Poppins", sans-serif;
+  --font-display: "Cinzel", serif;
+
+  --color-wedding-gold: #D4AF37;
+  --color-wedding-gold-light: #F9E79F;
+  --color-wedding-maroon: #800000;
+  --color-wedding-red: #8B0000;
+  --color-wedding-ivory: #FFFFF0;
+  --color-wedding-cream: #FFFDD0;
+  --color-wedding-haldi: #FFD700;
+  --color-wedding-mehndi: #2E8B57;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-wedding-ivory text-gray-800 font-sans;
+    line-height: 1.8;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-widest uppercase;
+  }
+}
+
+@layer components {
+  .royal-border {
+    border: 4px double var(--color-wedding-gold);
+    @apply relative;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-wedding-gold/20 shadow-xl;
+  }
+
+  .gold-text-gradient {
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .premium-button {
+    @apply px-8 py-4 bg-wedding-maroon text-wedding-gold border-2 border-wedding-gold rounded-full font-semibold tracking-widest uppercase transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:scale-105 active:scale-95 flex items-center justify-center gap-2;
+  }
+
+  .floral-pattern {
+    background-image: url("https://www.transparenttextures.com/patterns/floral-paper.png");
+  }
+}
+
+.masonry-grid {
+  column-count: 1;
+  column-gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+@media (min-width: 1024px) {
+  .masonry-grid {
+    column-count: 3;
+  }
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes float {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+.animate-float {
+  animation: float 15s linear infinite;
+}
